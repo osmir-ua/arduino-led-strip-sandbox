@@ -1,52 +1,49 @@
-#include <Arduino.h>
-#include "FastLED.h"
-
-#define NUM_LEDS 90
-#define PIN 13
-
-CRGB leds[NUM_LEDS];
-byte counter = 0;
-
+#define PIN 13        // пин DI
+#define NUM_LEDS 30   // число диодов
+#include "Adafruit_NeoPixel.h"
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRB + NEO_KHZ800);
 void setup() {
-  FastLED.addLeds<WS2811, PIN, RGB>(leds, NUM_LEDS);
- //  FastLED.setBrightness(10);
-  pinMode(PIN, OUTPUT);
-
- /* for (byte i = 0; i < NUM_LEDS ; i++){
-    leds[counter] = 
-  }
-*/
-  fill_solid(leds, NUM_LEDS, CRGB::IndianRed);
-  // setColorRGB(255,0,0);
-  FastLED.show();
-  // FastLED.clearData();
+  strip.begin();
+  strip.setBrightness(50);    // яркость, от 0 до 255
+  strip.clear();                          // очистить
+  strip.show();                           // отправить на ленту
 }
-
-
-
 void loop() {
- 
- /*
-  for (int i = 0; i < NUM_LEDS; i++ ) {         // от 0 до первой трети
-    leds[i] = CHSV(counter + i * 2, 255, 255);  // HSV. Увеличивать HUE (цвет)
-    // умножение i уменьшает шаг радуги
+  // заливаем трёмя цветами плавно
+  for (int i = 0; i < NUM_LEDS / 3; i++ ) {   // от 0 до первой трети
+    strip.setPixelColor(i, 0xff0000);     // залить красным
+    strip.show();                         // отправить на ленту
+    delay(100);
   }
-*/
- // counter++;        // counter меняется от 0 до 255 (тип данных byte)
-  // leds[counter] = CHSV(counter * 10, 127, 127);
- /*
-  leds[counter] = CRGB::Blue;
-  FastLED.show();
-  counter++;
-
-  delay(1000);         // скорость движения радуги
-  */
- /*
-  fill_solid(leds, NUM_LEDS, CRGB(0, 255, 0));
-  delay(1000);  
-  fill_solid(leds, NUM_LEDS, CRGB(255, 0, 0));
-  delay(1000);  
-  fill_solid(leds, NUM_LEDS, CRGB(0, 0, 255));
-  delay(1000);  
-*/
+  for (int i = NUM_LEDS / 3; i < NUM_LEDS * 2 / 3; i++ ) {   // от 1/3 до 2/3
+    strip.setPixelColor(i, 0x00ff00);     // залить зелёным
+    strip.show();                         // отправить на ленту
+    delay(100);
+  }
+  for (int i = NUM_LEDS * 2 / 3; i < NUM_LEDS; i++ ) {   // от 2/3 до конца
+    strip.setPixelColor(i, 0x0000ff);     // залить синим
+    strip.show();                         // отправить на ленту
+    delay(100);
+  }
+  delay(1000);
+  // заливаем белым
+  for (int i = 0; i < NUM_LEDS; i++ ) {   // всю ленту
+    strip.setPixelColor(i, 0xffffff);     // залить белым
+    strip.show();                         // отправить на ленту
+    delay(10);
+  }
+  delay(1000);
+  // заливаем чёрным
+  for (int i = 0; i < NUM_LEDS; i++ ) {   // всю ленту
+    strip.setPixelColor(i, 0x000000);     // залить чёрным
+    strip.show();                         // отправить на ленту
+    delay(10);
+  }
+  delay(1000);
+  // включаем случайные диоды жёлтым
+  for (int i = 0; i < 50; i++ ) {         // 50 раз
+    strip.setPixelColor(random(0, NUM_LEDS), 0xffff00);     // залить жёлтым
+    strip.show();                         // отправить на ленту
+    delay(5);
+  }
 }
