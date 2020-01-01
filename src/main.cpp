@@ -38,9 +38,11 @@ void loop() {
 }
 
 void timer_handle_interrupts(int timer) {
+  if (timer = TIMER_DEFAULT) {  
     if (random(5) = 1) {
       int ledPosition = (int)random(NUM_LEDS+1);
       leds[ledPosition].sat = 0;
       leds[ledPosition].val = 255;
     }
+  }
 }
