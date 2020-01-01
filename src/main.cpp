@@ -19,7 +19,7 @@ void setup() {
   FastLED.setBrightness(50);
   pinMode(PIN, OUTPUT);
   //Serial.begin(9600);
-  timer_init_ISR_10KHz(TIMER_DEFAULT);
+  timer_init_ISR_1KHz(TIMER_DEFAULT);
 }
 
 void loop() {
@@ -38,11 +38,10 @@ void loop() {
 }
 
 void timer_handle_interrupts(int timer) {
-  if (timer = TIMER_DEFAULT) {  
-    if (random(5) = 1) {
+  if (timer == TIMER_DEFAULT) {  
+    if ((int)random(25) == 1) {
       int ledPosition = (int)random(NUM_LEDS+1);
-      leds[ledPosition].sat = 0;
-      leds[ledPosition].val = 255;
+      leds[ledPosition] = CHSV(0, 0, 255);
     }
   }
 }
