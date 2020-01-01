@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "FastLED.h"
+#include "timer-api.h"
 
 #define NUM_LEDS 30
 #define PIN 13
