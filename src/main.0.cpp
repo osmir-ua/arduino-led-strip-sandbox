@@ -18,14 +18,11 @@ void setup() {
   FastLED.addLeds<WS2811, PIN, GRB>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
   FastLED.setBrightness(50);
   pinMode(PIN, OUTPUT);
+  //Serial.begin(9600);
+  timer_init_ISR_1KHz(TIMER_DEFAULT);
+}
 
-  Serial.begin(9600);
-  while (!Serial);
-  Serial.println("Serial port initialised\n------------------------");
-
-  
-  // timer_init_ISR_1KHz(TIMER_DEFAULT);
-
+void loop() {
   for (int i = 0; i < NUM_LEDS; i++ ) {         // от 0 до первой трети
     //randNum = random(85,101);
   //  Serial.println(randNum);
@@ -35,7 +32,9 @@ void setup() {
     currentLIGHTNESS = basicLIGHTNES;
   }
 
-
+  counter++;        // counter меняется от 0 до 255 (тип данных byte)
+  FastLED.show();
+  delay(30);         // скорость движения радуги
 }
 
 void timer_handle_interrupts(int timer) {
