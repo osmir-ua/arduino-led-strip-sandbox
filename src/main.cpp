@@ -31,7 +31,7 @@ void loop() {
 
 void timer_handle_interrupts(int timer) {
   if (timer == TIMER_DEFAULT) {  
-    if ((int)random(4) == 1) {
+    if (round(random(4)) == 1) {
       int ledPosition = (int)random(NUM_LEDS+1);
       leds[ledPosition] = 0xFFFFFF;
     }
