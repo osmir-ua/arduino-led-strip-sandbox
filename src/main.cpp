@@ -6,7 +6,7 @@
 #define PIN 13
 #define basicSATURATION 255
 #define basicLIGHTNES 127
-#define RANDOM_DEVIDER 20
+#define RANDOM_DEVIDER 10
 
 CRGB leds[NUM_LEDS];
 byte counter;
