@@ -9,6 +9,7 @@
 
 CRGB leds[NUM_LEDS];
 byte counter;
+volatile int flashLedPosition = -1;
 
 long randNum;
 
@@ -25,6 +26,11 @@ void loop() {
   }
 
   counter++;        // counter меняется от 0 до 255 (тип данных byte)
+
+  if (flashLedPosition <= 0 ){
+    LEDS[flashLedPosition] = 0xFFFFFF;
+    flashLedPosition = -1;
+  }
   FastLED.show();
   delay(30);         // скорость движения радуги
 }
@@ -32,8 +38,9 @@ void loop() {
 void timer_handle_interrupts(int timer) {
   if (timer == TIMER_DEFAULT) {  
     if ((int)random(4) == 1) {
-      int ledPosition = (int)random(NUM_LEDS+1);
-      leds[ledPosition] = 0xFFFFFF;
+      flashLedPosition = (int)random(NUM_LEDS+1);
+      // int ledPosition = (int)random(NUM_LEDS+1);
+      // leds[ledPosition] = 0xFFFFFF;
     }
   }
 }
